@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: gold_customer_order_summary
+    description: "Final gold model aggregating orders, items and customers"
+    columns:
+      - name: customer_id
+        tests: [unique, not_null]
+      - name: total_orders
+        tests: 
+          - dbt_utils.expression_is_true:
+              expression: "{{total_orders}} >= 0"
+      - name: total_amount_spent
+        tests: 
+          - dbt_utils.expression_is_true:
+              expression: "{{total_amount_spent}} >= 0"
+      - name: total_items_purchased
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "{{total_items_purchased}} >= 0"

@@ -40,7 +40,7 @@ models:
         - "INSERT INTO demo_schema.audit_table (model_name, run_timestamp, row_count, status)
            VALUES ('cust', CURRENT_TIMESTAMP, 
                    (SELECT COUNT(*) FROM {{ this }}), 'completed')"
-                   
+
     # Config indicated by + and applies to all files under models/example/
     example:
       +materialized: view
@@ -49,3 +49,8 @@ seeds:
   dbt_demo_proj:
     emp:
       file: emp.csv
+
+snapshots:
+  dbt_demo_proj:
+    +target_schema: demo_schema
+    +file: snapshots
